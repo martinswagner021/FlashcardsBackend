@@ -1,9 +1,21 @@
 const mongoose = require('../database/db.js')
 
-const testSchema = new mongoose.Schema({
-    name: String
+const userSchema = new mongoose.Schema({
+
+    username : {
+        type: String,
+        unique: true,
+        require: true
+    },
+
+    password: {
+        type: String,
+        require: true,
+        select: false
+    }
+
 })
 
-const Test = mongoose.model('Test', testSchema)
+const User = mongoose.model('User', userSchema)
 
-module.exports = Test
+module.exports = User

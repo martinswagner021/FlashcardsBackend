@@ -1,18 +1,11 @@
 const express = require('express')
-const Test = require('./models/user')
+
+const register = require('./register')
 
 const app = express()
 
-app.get('/', async (req, res) => {
-    
-    try {
-        
-        const test = await Test.create({name:"noch ein anderer test"})
-        res.end("test")
-        
-    } catch (error) {
-        return res.end({error: 'Something Failed'})
-    }   
-})
+app.use(express.json())
+
+app.use('/register', register)
 
 app.listen(5000, () => console.log("Server is running on port 5000..."))
