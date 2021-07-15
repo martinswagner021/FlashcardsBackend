@@ -9,6 +9,14 @@ const router = express.Router()
 router.post('/', async (req, res) => {
     const { username, password } = req.body
 
+    // Check if fields were correctly filled
+    if( !username ) {
+        return res.send({error: "Username required"})
+    }
+    if( !password ) {
+        return res.send({error: "Password required"})
+    }
+
     // Check if user already exists
     const userAlreadyExists = await User.findOne({ username: username },)
 
@@ -21,6 +29,8 @@ router.post('/', async (req, res) => {
 
     // Creation of the user
     const user = await User.create({ username: username, password:passwordHash })
+    user.password = undefined
+
     res.send({ user })
 
 })
