@@ -1,6 +1,8 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const compare = bcrypt.compare
+const jwt = require('jsonwebtoken')
+const sign = jwt.sign
 
 const User = require('./models/user')
 
@@ -31,9 +33,20 @@ router.get('/', async (req, res) => {
     if( !checkPassword ) {
         return res.send({error: "Username/Password does not match"})
     }
+    user.password = undefined
+
+    // JWT Authentication
+    const token = sign({
+            user: user.username
+        },
+         process.env.JWT_SECRET,
+         {
+             expiresIn: "5h",
+             subject: user.id
+         })
 
 
-    res.send({ user })
+    res.send({ token })
 
 })
 
