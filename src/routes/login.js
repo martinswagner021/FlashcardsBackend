@@ -1,13 +1,15 @@
+// Libraries Imports
 const express = require('express')
+const router = express.Router()
 const bcrypt = require('bcrypt')
 const compare = bcrypt.compare
 const jwt = require('jsonwebtoken')
 const sign = jwt.sign
 
-const User = require('./models/user')
+// Models Imports
+const User = require('../models/user')
 
-const router = express.Router()
-
+// Router
 router.get('/', async (req, res) => {
     const { username, password } = req.body
 
@@ -50,4 +52,5 @@ router.get('/', async (req, res) => {
 
 })
 
+// Exports
 module.exports = router

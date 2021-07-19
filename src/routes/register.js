@@ -1,11 +1,13 @@
+// Libraries Imports
 const express = require('express')
+const router = express.Router()
 const bcrypt = require('bcrypt')
 const hash = bcrypt.hash
 
-const User = require('./models/user')
+// Models Imports
+const User = require('../models/user')
 
-const router = express.Router()
-
+// Router
 router.post('/', async (req, res) => {
     const { username, password } = req.body
 
@@ -35,4 +37,5 @@ router.post('/', async (req, res) => {
 
 })
 
+// Exports
 module.exports = router

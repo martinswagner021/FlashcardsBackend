@@ -1,5 +1,7 @@
+// Database Imports
 const mongoose = require('../database/db.js')
 
+// Schema/Model creation
 const userSchema = new mongoose.Schema({
 
     username : {
@@ -16,6 +18,8 @@ const userSchema = new mongoose.Schema({
 
 })
 
+// Schema/Model declaration
 const User = mongoose.model('User', userSchema)
 
+// Exports
 module.exports = User
