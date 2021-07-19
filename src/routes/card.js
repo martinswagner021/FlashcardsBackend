@@ -3,8 +3,11 @@ const express = require('express')
 const router = express.Router()
 
 // Router
+
+// Get method
 router.get('/', (req, res) => {
-    res.send({message: "hello"})
+    const { user_id } = req
+    res.send({message: "hello",user:user_id})
 })
 
 // Exports
