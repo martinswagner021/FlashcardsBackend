@@ -1,8 +1,10 @@
 // Database Imports
+const { Schema } = require('mongoose')
 const mongoose = require('../database/db')
 
 // Schema/Model creation
-const cardSchema = new mongoose.Schema({
+const cardSchema = new Schema({
+
     title: {
         type: String
     },
@@ -11,8 +13,11 @@ const cardSchema = new mongoose.Schema({
         required: true,
     },
     creator: {
-        ref: 'User'
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
+
 })
 
 // Schema/Model declaration

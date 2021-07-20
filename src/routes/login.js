@@ -15,10 +15,10 @@ router.get('/', async (req, res) => {
 
     // Check if fields were correctly filled
     if( !username ) {
-        return res.send({error: "Username required"})
+        return res.send({error: "Username required."})
     }
     if( !password ) {
-        return res.send({error: "Password required"})
+        return res.send({error: "Password required."})
     }
     
     // Find user + password (default select = false in models)
@@ -26,14 +26,14 @@ router.get('/', async (req, res) => {
     
     //  Check if user exists
     if(!user) {
-        res.send({error: "Username/Password does not match"})
+        res.send({error: "Username/Password does not match."})
     }
 
     // Check if password matches
     const checkPassword = await compare(password, user.password)
     
     if( !checkPassword ) {
-        return res.send({error: "Username/Password does not match"})
+        return res.send({error: "Username/Password does not match."})
     }
     user.password = undefined
 

@@ -13,17 +13,17 @@ router.post('/', async (req, res) => {
 
     // Check if fields were correctly filled
     if( !username ) {
-        return res.send({error: "Username required"})
+        return res.send({error: "Username required."})
     }
     if( !password ) {
-        return res.send({error: "Password required"})
+        return res.send({error: "Password required."})
     }
 
     // Check if user already exists
     const userAlreadyExists = await User.findOne({ username: username },)
 
     if( userAlreadyExists ) {
-        return res.send({error: "User already exists"})
+        return res.send({error: "User already exists."})
     }
 
     // Password cryptography
