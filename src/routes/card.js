@@ -36,25 +36,29 @@ router.post('/', async (req, res) => {
 })
 
 // Modify cards
-router.put('/', (req, res) => {
+router.put('/', async (req, res) => {
     const { user_id } = req
     const { title, content } = req.body
-    
+
     // Check if the fields are correctly filled up
     if(!content) {
         return res.send({error: "Your card does not have any content."})
     }
-
     
+    // Get the card id from the elemento to be modified through URL query
+    const id = URL.parse(req.url, true).query.card
 
-    return res.send({error: "in production..."})
+    // Find and update the data
+    await Card.updateOne({_id: id}, {title: title, content: content})
+
+    return res.send({message: "Card successfully deleted."})
 })
 
 // Delete cards
 router.delete('/', async (req, res) => {
     
-    // Get the id from the element to be deleted through URL query
-    const { id } = URL.parse(req.url, true).query
+    // Get the card id from the element to be deleted through URL query
+    const id = URL.parse(req.url, true).query.card
     
     await Card.deleteOne({_id: id})
     
