@@ -12,11 +12,14 @@ const Card = require('../models/card')
 // Get all cards
 router.get('/', async (req, res) => {
     const { user_id } = req
-
-    // Get all the cards by user_id
-    const cards = await Card.find({ creator: user_id })
     
-    return res.send({ cards })
+    // Get a specific card id, in case it is queried
+    const { card } = URL.parse(req.url, true).query
+
+    // Check if the user searches for a specific card or get all cards 
+    const result = card ? await Card.find({_id: card, creator: user_id}) : await Card.find({creator:user_id})
+    
+    return res.send({ result })
 })
 
 // Create cards
@@ -30,9 +33,9 @@ router.post('/', async (req, res) => {
     }
 
     // Create the card
-    const card = await Card.create({ title: title, content: content, creator: user_id })
+    const result = await Card.create({ title: title, content: content, creator: user_id })
 
-    return res.send({ card })
+    return res.send({ result })
 })
 
 // Modify cards
@@ -46,21 +49,21 @@ router.put('/', async (req, res) => {
     }
     
     // Get the card id from the elemento to be modified through URL query
-    const id = URL.parse(req.url, true).query.card
+    const { card } = URL.parse(req.url, true).query
 
     // Find and update the data
-    await Card.updateOne({_id: id}, {title: title, content: content})
+    await Card.updateOne({_id: card}, {title: title, content: content})
 
-    return res.send({message: "Card successfully deleted."})
+    return res.send({message: "Card successfully modified."})
 })
 
 // Delete cards
 router.delete('/', async (req, res) => {
     
     // Get the card id from the element to be deleted through URL query
-    const id = URL.parse(req.url, true).query.card
+    const { card } = URL.parse(req.url, true).query
     
-    await Card.deleteOne({_id: id})
+    await Card.deleteOne({_id: card})
     
     return res.send({message: "Card successfully deleted."})
 })
