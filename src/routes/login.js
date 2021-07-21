@@ -10,7 +10,7 @@ const sign = jwt.sign
 const User = require('../models/user')
 
 // Router
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
     const { username, password } = req.body
 
     // Check if fields were correctly filled
