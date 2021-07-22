@@ -1,5 +1,6 @@
 // Libraries Imports
 const express = require('express')
+const cors = require('cors')
 
 // Routes Imports
 const register = require('./routes/register')
@@ -12,6 +13,10 @@ const authenticator = require('./middlewares/authenticator')
 // Creation of the app
 const app = express()
 app.use(express.json())
+
+app.use(cors())
+
+app.writeHead
 
 // Routes
 app.use('/register', register)
