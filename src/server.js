@@ -16,8 +16,6 @@ app.use(express.json())
 
 app.use(cors())
 
-app.writeHead
-
 // Routes
 app.use('/register', register)
 app.use('/login', login)
