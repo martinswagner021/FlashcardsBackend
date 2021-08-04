@@ -3,6 +3,8 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const hash = bcrypt.hash
+const jwt = require('jsonwebtoken')
+const sign = jwt.sign
 
 // Models Imports
 const User = require('../models/user')
@@ -33,7 +35,17 @@ router.post('/', async (req, res) => {
     const user = await User.create({ username: username, password:passwordHash })
     user.password = undefined
 
-    res.send({ user })
+    // Automatically authenticate with JWT
+    const token = sign({
+        user: user.username
+    },
+     process.env.JWT_SECRET,
+     {
+         expiresIn: "5h",
+         subject: user.id
+     })
+
+    res.send({ token })
 
 })
 
