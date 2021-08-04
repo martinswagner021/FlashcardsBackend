@@ -7,6 +7,7 @@ require('dotenv').config()
 const register = require('./routes/register')
 const login = require('./routes/login')
 const card = require('./routes/card')
+const user = require('./routes/user')
 
 // Middlewares Imports
 const authenticator = require('./middlewares/authenticator')
@@ -22,6 +23,7 @@ app.use(cors())
 app.use('/register', register)
 app.use('/login', login)
 app.use('/card', authenticator, card)
+app.use('/user', authenticator, user)
 
 // Server listener
 app.listen(port, () => console.log(`Server is running on port ${port}...`))
